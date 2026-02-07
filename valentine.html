@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Just Us — Valentine</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --text:#f8fafc;
+  --muted:#cbd5e1;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:Inter,system-ui,sans-serif;
+  color:var(--text);
+  background:
+  linear-gradient(to bottom,rgba(0,0,0,.25),rgba(0,0,0,.85)),
+  url("./main.png") center 35% / cover no-repeat;
+background-attachment: fixed;
+
+  min-height:100vh;
+  overflow-x:hidden;
+  scrollbar-width:none;
+}
+body::-webkit-scrollbar{width:0}
+
+/* FLOATING HEARTS */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:16px;
+  animation:floatUp linear forwards;
+  pointer-events:none;
+  opacity:.6;
+}
+
+@keyframes floatUp{
+  to{transform:translateY(-120vh);opacity:0}
+}
+
+/* CONTENT */
+.container{
+  max-width:1200px;
+  margin:0 auto;
+  padding:110px 24px 160px;
+  text-align:center;
+}
+
+h1{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(36px,5vw,56px);
+  margin-bottom:10px;
+}
+
+.subtitle{
+  color:var(--muted);
+  font-size:17px;
+  margin-bottom:70px;
+}
+
+/* GRIDS */
+.week-top{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:26px;
+  margin-bottom:40px;
+}
+
+.week-bottom{
+  display:flex;
+  justify-content:center;
+  gap:26px;
+}
+
+/* CARD */
+.day{
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(8px);
+  border-radius:22px;
+  padding:28px 26px;
+  box-shadow:0 20px 40px rgba(0,0,0,.35);
+  max-width:280px;
+  width:100%;
+}
+
+.day h3{
+  font-family:"Playfair Display",serif;
+  font-size:22px;
+  margin-bottom:12px;
+}
+
+.day p{
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.7;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .container{padding-top:90px}
+  .week-top{grid-template-columns:1fr}
+  .week-bottom{flex-direction:column;align-items:center}
+  .day{max-width:340px}
+}
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+    background-position: center top;
+  }
+}
+body {
+  min-height: 100svh;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio id="music" loop playsinline>
+  <source src="./music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+  <h1>Happy Valentine’s Week ❤️</h1>
+  <p class="subtitle">
+    Not just a celebration.<br>
+    A sequence of feelings — unfolding slowly.
+  </p>
+
+  <div class="week-top">
+  <div class="day">
+    <h3>🌹 Rose Day</h3>
+    <p>
+      It didn’t start loudly.<br>
+      Just a thought of you — soft, unexpected,
+      and impossible to ignore.
+    </p>
+  </div>
+
+  <div class="day">
+    <h3>💌 Propose Day</h3>
+    <p>
+      Not rehearsed. Not dramatic.<br>
+      Just honesty — standing still,
+      hoping you’d understand what words couldn’t say.
+    </p>
+  </div>
+
+  <div class="day">
+    <h3>🍫 Chocolate Day</h3>
+    <p>
+      Sweet in the simplest way.<br>
+      The kind of sweetness that doesn’t overwhelm,
+      but stays long after.
+    </p>
+  </div>
+
+  <div class="day">
+    <h3>🧸 Teddy Day</h3>
+    <p>
+      For comfort on days when nothing makes sense.<br>
+      Something familiar. Something warm.
+    </p>
+  </div>
+</div>
+
+<div class="week-bottom">
+  <div class="day">
+    <h3>🤝 Promise Day</h3>
+    <p>
+      Not promises carved in stone.<br>
+      Just the quiet decision to stay,
+      even when it’s not easy.
+    </p>
+  </div>
+
+  <div class="day">
+    <h3>🤗 Hug Day</h3>
+    <p>
+      When words fall short,
+      and silence feels safer than explanations.
+    </p>
+  </div>
+
+  <div class="day">
+    <h3>💖 Valentine’s Day</h3>
+    <p>
+      Not a question anymore.<br>
+      Not a maybe.<br>
+      Just us — choosing each other.
+    </p>
+  </div>
+</div>
+
+</div>
+
+<script>
+/* PLAY MUSIC ONLY IF YES WAS CLICKED */
+const music = document.getElementById("music");
+
+if(sessionStorage.getItem("musicUnlocked")==="true"){
+  music.volume = 0.7;
+  music.play().catch(()=>{});
+}
+
+/* FLOATING HEARTS */
+setInterval(()=>{
+  const heart=document.createElement("div");
+  heart.className="heart";
+  heart.textContent="❤";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=(12+Math.random()*18)+"px";
+  heart.style.animationDuration=(6+Math.random()*6)+"s";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),12000);
+},700);
+</script>
+
+</body>
+</html>

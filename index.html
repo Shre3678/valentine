@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Just Us</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --text:#f8fafc;
+  --muted:#cbd5e1;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:Inter,system-ui,sans-serif;
+  background:#000;
+  color:var(--text);
+  scrollbar-width:none;
+}
+body::-webkit-scrollbar{width:0}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  background:
+    linear-gradient(to bottom,rgba(0,0,0,.2),rgba(0,0,0,.75)),
+    url("./main.png") center 35% / cover no-repeat;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+
+/* SCENES */
+.scene{
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  max-width:900px;
+  width:100%;
+  animation:fadeUp .8s ease;
+}
+.scene.active{display:flex}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* TEXT */
+h1{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(28px,4vw,44px);
+  margin-bottom:16px;
+}
+
+.subtitle{
+  font-size:15px;
+  color:var(--muted);
+  line-height:1.8;
+  margin-bottom:28px;
+}
+
+.story-line{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(20px,2.6vw,30px);
+  margin-bottom:22px;
+}
+
+.story-line.highlight{
+  font-size:clamp(22px,3vw,34px);
+  font-weight:600;
+}
+
+/* MEMORY GRID */
+#scene-3{padding-top:40px}
+
+.memory-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  width:100%;
+}
+
+.memory{
+  aspect-ratio:3/4;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 20px 40px rgba(0,0,0,.35);
+}
+
+.memory img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.memory-text{
+  margin-top:28px;
+  font-family:"Playfair Display",serif;
+  font-size:clamp(18px,2.4vw,26px);
+  color:var(--muted);
+}
+
+/* BUTTONS */
+.actions{
+  display:flex;
+  gap:16px;
+  margin-top:36px;
+  position:relative;
+}
+
+button{
+  border:none;
+  background:rgba(255,255,255,.15);
+  color:#fff;
+  padding:14px 30px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+  backdrop-filter:blur(6px);
+  transition:.3s;
+}
+
+button:hover{
+  background:rgba(255,255,255,.28);
+  transform:translateY(-2px);
+}
+
+/* NO BUTTON ESCAPE */
+#noBtn{
+  position:relative;
+  transition:transform .35s ease, opacity .35s ease;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .hero{
+    align-items:flex-start;
+    padding-top:80px;
+    padding-bottom:120px;
+  }
+
+  .memory-grid{grid-template-columns:1fr}
+  .memory{max-width:340px;margin:0 auto}
+
+  .actions{flex-direction:column}
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+
+<!-- SCENE 1 -->
+<div class="scene active" id="scene-1">
+  <h1>In a world full of noise,<br>I found my calm.</h1>
+  <p class="subtitle">
+    Some moments don’t ask for explanations.<br>
+    They just stay — quietly, warmly.
+  </p>
+  <button onclick="go(2)">Begin the story</button>
+</div>
+
+<!-- SCENE 2 -->
+<div class="scene" id="scene-2">
+
+  <p class="story-line">
+    The first time I saw you,<br>
+    my heart forgot how to stay calm.
+  </p>
+
+  <p class="story-line">
+    I blushed… trying to hide it,<br>
+    but you noticed anyway.
+  </p>
+
+  <p class="story-line">
+    Somehow, that day,<br>
+    you became my Valentine.
+  </p>
+
+  <p class="story-line">
+    With a smile full of courage,<br>
+    you believed in “us” — forever.
+  </p>
+
+  <p class="story-line highlight">
+    And today, I promise you my life,<br>
+    for all the ages to come.
+  </p>
+
+  <button class="continue-btn" onclick="go(3)">
+    Continue
+  </button>
+
+</div>
+
+
+<!-- SCENE 3 -->
+<div class="scene" id="scene-3">
+  <div class="memory-grid">
+    <div class="memory"><img src="./mem1.jpeg"></div>
+    <div class="memory"><img src="./mem.jpeg"></div>
+    <div class="memory"><img src="./mem3.jpeg"></div>
+  </div>
+  <div class="memory-text">
+    Three moments.<br>All quietly unforgettable.
+  </div>
+  <button style="margin-top:36px" onclick="go(4)">Continue</button>
+</div>
+
+<!-- SCENE 4 -->
+<div class="scene" id="scene-4">
+  <p class="story-line" id="choice-text">
+  I didn’t come here with a plan.<br>
+  Just wondering… will “forever” still choose us?
+  </p>
+
+
+  <div class="actions">
+    <button id="yesBtn" onclick="yes()">Yes</button>
+    <button id="noBtn">No</button>
+  </div>
+</div>
+
+</section>
+
+<script>
+let noCount = 0;
+const noBtn = document.getElementById("noBtn");
+
+function go(n){
+  document.querySelectorAll(".scene").forEach(s=>s.classList.remove("active"));
+  document.getElementById(`scene-${n}`).classList.add("active");
+}
+
+function dodgeNo(){
+  noCount++;
+  const text = document.getElementById("choice-text");
+  const x = Math.random()*200 - 100;
+  const y = Math.random()*120 - 60;
+  noBtn.style.transform = `translate(${x}px,${y}px)`;
+
+ if (noCount === 1) {
+  text.innerHTML = "Wait… really?<br>Is that a ‘no’, or are you just thinking?";
+}
+
+if (noCount === 2) {
+  text.innerHTML = "I’m starting to feel it…<br>This matters more to me than I thought.";
+}
+
+if (noCount >= 3) {
+  text.innerHTML = "I can’t walk away over one small ‘no’.<br>I just need you to know how deeply I feel.";
+  
+  noBtn.style.opacity = "0";
+  setTimeout(() => noBtn.style.display = "none", 400);
+}
+
+}
+
+noBtn.addEventListener("mouseenter",dodgeNo);
+noBtn.addEventListener("touchstart",dodgeNo);
+
+/* YES = UNLOCK MUSIC + GO */
+function yes(){
+  sessionStorage.setItem("musicUnlocked","true");
+  window.location.href="valentine.html";
+}
+</script>
+
+</body>
+</html>
